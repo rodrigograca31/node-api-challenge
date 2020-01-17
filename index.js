@@ -17,6 +17,7 @@ const express = require("express");
 const server = express();
 
 const projectsRoutes = require("./routes/projects");
+const actionsRoutes = require("./routes/actions");
 
 server.use(express.json());
 
@@ -27,6 +28,7 @@ server.listen(port, () => {
 });
 
 server.use("/api/projects", projectsRoutes);
+server.use("/api/actions", actionsRoutes);
 
 server.get("*", (req, res) => {
 	res.status(200).json({ message: "ok" });

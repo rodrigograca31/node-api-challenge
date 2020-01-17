@@ -2,6 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const DB = require("../data/helpers/projectModel");
+const Actions = require("../data/helpers/actionModel");
 
 router.get("/", (req, res) => {
 	DB.get()
@@ -53,6 +54,9 @@ router.delete("/:id", validateId, (req, res) => {
 	DB.remove(req.params.id)
 		.then(result => {
 			if (result) {
+				req.data.actions.forEach(action => {
+					Actions.remove(action.id);
+				});
 				res.status(200).json(req.data);
 			}
 		})
