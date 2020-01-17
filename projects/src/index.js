@@ -4,14 +4,15 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { projectsReducer } from "./state/reducers";
+import { projectsReducer, projectReducer } from "./state/reducers";
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 // Step 4: Use "combineReducers" to make a monster reducer
 const monsterReducer = combineReducers({
-	projects: projectsReducer
+	projects: projectsReducer,
+	project: projectReducer
 });
 
 // Step 5: use "createStore" to make a redux store
