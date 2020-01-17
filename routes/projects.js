@@ -1,11 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
-const DB = require("../data/helpers/projectModel");
-const Actions = require("../data/helpers/actionModel");
+const Projects = require("../data/helpers/projectModel");
+// const Actions = require("../data/helpers/actionModel");
 
 router.get("/", (req, res) => {
-	DB.get()
+	Projects.get()
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -25,7 +25,7 @@ router.get("/:id", validateId, (req, res) => {
 
 router.post("/", validateBody, (req, res) => {
 	// do your magic!
-	DB.insert(req.body)
+	Projects.insert(req.body)
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -38,7 +38,7 @@ router.post("/", validateBody, (req, res) => {
 
 router.put("/:id", validateId, validateBody, (req, res) => {
 	// do your magic!
-	DB.update(req.params.id, req.body)
+	Projects.update(req.params.id, req.body)
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -51,12 +51,12 @@ router.put("/:id", validateId, validateBody, (req, res) => {
 
 router.delete("/:id", validateId, (req, res) => {
 	// do your magic!
-	DB.remove(req.params.id)
+	Projects.remove(req.params.id)
 		.then(result => {
 			if (result) {
-				req.data.actions.forEach(action => {
-					Actions.remove(action.id);
-				});
+				// req.data.actions.forEach(action => {
+				// 	Actions.remove(action.id);
+				// });
 				res.status(200).json(req.data);
 			}
 		})
@@ -75,7 +75,7 @@ function validateId(req, res, next) {
 		return true;
 	}
 
-	DB.get(req.params.id)
+	Projects.get(req.params.id)
 		.then(data => {
 			if (data) {
 				req.data = data;

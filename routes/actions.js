@@ -1,11 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
-const DB = require("../data/helpers/actionModel");
+const Actions = require("../data/helpers/actionModel");
 const Projects = require("../data/helpers/projectModel");
 
 router.get("/", (req, res) => {
-	DB.get()
+	Actions.get()
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -25,7 +25,7 @@ router.get("/:id", validateId, (req, res) => {
 
 router.post("/", validateBody, validateProjectId, (req, res) => {
 	// do your magic!
-	DB.insert(req.body)
+	Actions.insert(req.body)
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -38,7 +38,7 @@ router.post("/", validateBody, validateProjectId, (req, res) => {
 
 router.put("/:id", validateBody, validateId, validateProjectId, (req, res) => {
 	// do your magic!
-	DB.update(req.params.id, req.body)
+	Actions.update(req.params.id, req.body)
 		.then(result => {
 			if (result) {
 				res.status(200).json(result);
@@ -51,7 +51,7 @@ router.put("/:id", validateBody, validateId, validateProjectId, (req, res) => {
 
 router.delete("/:id", validateId, (req, res) => {
 	// do your magic!
-	DB.remove(req.params.id)
+	Actions.remove(req.params.id)
 		.then(result => {
 			if (result) {
 				res.status(200).json(req.data);
@@ -72,7 +72,7 @@ function validateId(req, res, next) {
 		return true;
 	}
 
-	DB.get(req.params.id)
+	Actions.get(req.params.id)
 		.then(data => {
 			if (data) {
 				req.data = data;
