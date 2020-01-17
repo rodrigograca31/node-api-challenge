@@ -14,14 +14,16 @@ Go code!
 */
 
 const express = require("express");
+const cors = require("cors");
 const server = express();
 
 const projectsRoutes = require("./routes/projects");
 const actionsRoutes = require("./routes/actions");
 
 server.use(express.json());
+server.use(cors());
 
-const port = process.env.PORT || 3131;
+const port = process.env.PORT || 5000;
 
 server.listen(port, () => {
 	console.log("listening on " + port);
