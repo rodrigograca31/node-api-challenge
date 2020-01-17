@@ -116,6 +116,10 @@ function validateBody(req, res, next) {
 		res.status(400).json({ message: "missing required field" });
 		return true;
 	}
+	if (req.body.description.length > 128) {
+		res.status(400).json({ message: "description is too long" });
+		return true;
+	}
 	if (req.body.completed !== undefined) {
 		req.body.completed = !!Number(req.body.completed);
 	}
